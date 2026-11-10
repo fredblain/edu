@@ -1,0 +1,62 @@
+# ==========================================================================
+# catalog.yml — what is published under https://fredblain.github.io/edu/
+#
+# Each item is copied from its own repository into /edu/<slug>/.
+# Edit this file, commit, push: the workflow rebuilds and deploys the hub.
+#
+# Item fields
+#   slug      URL folder: /edu/<slug>/  (lowercase letters, digits, hyphens)
+#   repo      owner/name of the content repository
+#   title     shown on the index page
+#   summary   one or two sentences for the index page
+#   date      YYYY-MM-DD, used for sorting (newest first) and shown as "Oct 2026"
+#   tags      short keywords shown as pills
+#   ref       branch or tag to publish (a tag pins a version, e.g. a course year)
+#   path      folder inside the repo that holds the site ("." = whole repo)
+#   build     optional shell command run in the repo before copying `path`,
+#             e.g. "pip install -r requirements.txt && jupyter-book build book"
+#   exclude   extra files/folders (glob patterns) not to copy; .git and .github
+#             are never copied
+#   status    published (listed + online) | archived (online, not listed)
+#             | draft (skipped entirely)
+#
+# Optional, mostly for research items (shown when present):
+#   venue, authors (list), paper, code, doi, slides, video
+# ==========================================================================
+
+site:
+  section: edu                        # the URL folder of this hub
+  label: Teaching                     # name shown in the page heading and nav
+  title: Teaching material
+  description: >-
+    Guided notebooks, illustrated tutorials and course material on getting
+    research code running, from a laptop to a shared GPU cluster.
+  home: https://fredblain.github.io   # homepage (fonts and icons are loaded from it)
+  author: Frédéric Blain
+
+defaults:
+  ref: main
+  path: .
+  status: published
+
+items:
+  - slug: notebook-to-cluster
+    repo: fredblain/notebook-to-cluster
+    title: From Notebook to Cluster
+    summary: >-
+      An illustrated, step-by-step guide from running a notebook on your own
+      machine to sharing a GPU cluster: the terminal, Windows and WSL,
+      reproducible environments, Git, and GPU etiquette.
+    tags: [terminal, git, environments, gpu]
+    # date: 2026-10-01                # TODO: first publication date
+    # path: .                         # TODO: change if the guide lives in a subfolder (e.g. docs/)
+    exclude: [README.md, LICENSE]
+
+  # Example of a pinned course version, kept as a draft until it is ready:
+  # - slug: intro-mt
+  #   repo: fredblain/edu-intro-mt
+  #   title: Introduction to Machine Translation
+  #   summary: Lecture notes and lab notebooks.
+  #   ref: v2027.1
+  #   path: site
+  #   status: draft

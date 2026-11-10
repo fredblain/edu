@@ -1,0 +1,55 @@
+name: Deploy hub
+
+on:
+  push:
+    branches: [main]                 # catalog.yml, templates or build.py changed
+  repository_dispatch:
+    types: [content-updated]         # a content repo asked for a rebuild (see examples/notify.yml)
+  workflow_dispatch:                 # "Run workflow" button in the Actions tab
+  schedule:
+    - cron: "17 4 * * 1"             # weekly safety rebuild, Mondays 04:17 UTC
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install build dependencies
+        run: pip install pyyaml==6.0.2
+
+      - name: Assemble site from catalog.yml
+        run: python build.py
+        env:
+          # Only needed if some content repos are private. A fine-grained token
+          # with read-only "Contents" access to those repos, stored as a secret.
+          CONTENT_TOKEN: ${{ secrets.CONTENT_READ_TOKEN }}
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

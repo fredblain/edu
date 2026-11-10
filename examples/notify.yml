@@ -1,0 +1,23 @@
+# Optional: copy to .github/workflows/notify.yml in a content repo
+# (e.g. notebook-to-cluster) so the hub rebuilds as soon as you push there.
+# Without it, changes appear at the next weekly rebuild or when you press
+# "Run workflow" in the hub's Actions tab.
+#
+# Needs a secret HUB_DISPATCH_TOKEN in the content repo: a fine-grained token
+# with "Contents: read and write" on fredblain/edu (required to send
+# repository_dispatch events).
+
+name: Notify edu hub
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ask the hub to rebuild
+        run: gh api repos/fredblain/edu/dispatches -f event_type=content-updated
+        env:
+          GH_TOKEN: ${{ secrets.HUB_DISPATCH_TOKEN }}

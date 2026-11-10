@@ -1,0 +1,4 @@
+_site/
+_work/
+.DS_Store
+__pycache__/
