@@ -51,6 +51,17 @@ items:
     # date: 2026-10-01                # TODO: first publication date
     # path: .                         # TODO: change if the guide lives in a subfolder (e.g. docs/)
     exclude: [README.md, LICENSE]
+  - slug: notebook-to-cluster
+    repo: fredblain/looplab
+    title: LoopLab
+    summary: >-
+      An interactive lab for learning Python loops: step through code line by line, 
+      predict each change before it happens, fill in trace tables, 
+      and solve 30 line-ordering puzzles.
+    tags: [python, loops, programming]
+    # date: 2026-10-01                # TODO: first publication date
+    # path: .                         # TODO: change if the guide lives in a subfolder (e.g. docs/)
+    exclude: [README.md, LICENSE]
 
   # Example of a pinned course version, kept as a draft until it is ready:
   # - slug: intro-mt
