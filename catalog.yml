@@ -51,7 +51,7 @@ items:
     # date: 2026-10-01                # TODO: first publication date
     # path: .                         # TODO: change if the guide lives in a subfolder (e.g. docs/)
     exclude: [README.md, LICENSE]
-  - slug: notebook-to-cluster
+  - slug: looplab
     repo: fredblain/looplab
     title: LoopLab
     summary: >-
