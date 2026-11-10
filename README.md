@@ -38,3 +38,7 @@ Fonts and icons load from the live homepage, so the preview needs an internet co
 ## A research hub
 
 `res` uses the same files. Copy this repo, then change `site:` in `catalog.yml` (`section: res`, `label: Research`, …). Research items can also have `venue`, `authors`, `paper`, `code`, `doi`, `slides` and `video`, which are shown on the index page when present.
+
+## Licence
+
+Code in this repo is MIT-licensed (see `LICENSE`). Each published item keeps the licence of its own repository.
